@@ -25,3 +25,6 @@ reprepro -V -b $REPO_DIR removefilter $DISTRO "Package (==$PKG), Architecture (=
 reprepro -V -b $REPO_DIR deleteunreferenced
 
 reprepro -V -b $REPO_DIR includedeb $DISTRO $BUILD_DIR/binarydebs/$NAME
+
+sudo apt-get update
+sudo apt-get install $PKG

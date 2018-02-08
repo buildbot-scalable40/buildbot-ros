@@ -212,7 +212,7 @@ def get_ros_env(setup_file):
 
 ## @brief modified version of function found in jenkins-scripts/common.py
 def apt_get_install(pkgs, sudo=False):
-    cmd = ['apt-get', 'install', '--yes']
+    cmd = ['apt-get', 'install', '--yes', '--allow-unauthenticated']
     if sudo:
         cmd = ['sudo', ] + cmd
 
@@ -272,7 +272,7 @@ class RosDepResolver:
     def to_aptlist(self, ros_entries):
         res = []
         for r in ros_entries:
-            if r.endswith("-pip"):
+            if r.endswith("-pip") and  (r !=("python-pip")):
                 continue
             for a in self.to_apt(r):
                 if not a in res:
@@ -282,7 +282,7 @@ class RosDepResolver:
     def to_piplist(self, ros_entries):
         res = []
         for r in ros_entries:
-            if r.endswith("-pip"):
+            if r.endswith("-pip") and (r !=("python-pip")):
                 for a in self.r2a[r]:
                     if not a in res:
                         res.append(a)

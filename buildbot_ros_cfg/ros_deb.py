@@ -159,6 +159,7 @@ def ros_debbuild(c, job_name, packages, url, distro, arch, rosdistro, version, m
         # Add the binarydeb using reprepro updater script on master
         f.addStep(
             MasterShellCommand(
+                haltOnFailure = False,
                 name = package+'-includedeb',
                 command = ['reprepro-include.bash', debian_pkg, Interpolate(final_name), distro, arch],
                 descriptionDone = ['updated in apt', package]
@@ -170,7 +171,7 @@ def ros_debbuild(c, job_name, packages, url, distro, arch, rosdistro, version, m
                 command = ['rm', '-rf', 'debian/'+debian_pkg],
                 hideStepIf = success
             )
-        )
+)
     # Trigger if needed
     if trigger_pkgs != None:
         f.addStep(
